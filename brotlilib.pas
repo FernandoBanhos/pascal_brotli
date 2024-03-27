@@ -130,12 +130,12 @@ var
                                    const input_buffer: Pointer; out encoded_size: TBrotliSize;
                                    const encoded_buffer: Pointer): Integer; cdecl;
   BrotliEncoderCompressStream : function(state: Pointer;
-                                         op: Integer;
+                                         op: TBrotliEncoderOperation;
                                          var available_in: TBrotliSize;
                                          next_in: Pointer;
                                          var available_out: TBrotliSize;
                                          next_out: Pointer;
-                                         total_out: Pointer): Integer; cdecl;
+                                         var total_out: TBrotliSize): Integer; cdecl;
   BrotliEncoderTakeOutput : function(const state : Pointer;
                                      var size : TBrotliSize) : Pointer; cdecl;
   BrotliEncoderHasMoreOutput : function(const state : pointer) : Integer; cdecl;
