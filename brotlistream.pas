@@ -62,7 +62,7 @@ type
     FBuffer: Pointer;
     FOnProgress: TNotifyEvent;
     procedure Progress(ASender: TObject);
-    property OnProgress:Tnotifyevent read FOnProgress write FOnProgress;
+    property OnProgress: TNotifyEvent read FOnProgress write FOnProgress;
   public
     constructor Create(AStream: TStream);
     destructor Destroy; override;
@@ -95,7 +95,7 @@ type
     FRawRead: int64;
     FCompressedRead: int64;
     procedure Reset;
-    procedure InitDescompress;
+    procedure InitDecompress;
     function GetPosition: int64; override;
   public
     constructor Create(ASource: TStream);
@@ -109,8 +109,8 @@ type
 implementation
 
 const
-  BrotliBufSize = 16384;     {Size of the buffer used for temporarily storing
-                            data from the child stream.}
+  BrotliBufSize = 16384; {Size of the buffer used for temporarily storing
+                          data from the child stream.}
 
 { TBrotliCompress }
 
@@ -331,7 +331,7 @@ constructor TCustomBrotliStream.Create(AStream: TStream);
 begin
   Assert(AStream <> nil);
   inherited Create(AStream);
-  Getmem(FBuffer,BrotliBufSize);
+  Getmem(FBuffer, BrotliBufSize);
 end;
 
 destructor TCustomBrotliStream.Destroy;
@@ -394,11 +394,12 @@ var
 begin
   FStream.next_in := @ABuffer;
   FStream.avail_in := ACount;
-  vLastAvail := ACount;
-  while FStream.avail_in <> 0 do
+  vLastAvail := ACount;;
+  while True do // FStream.avail_in <> 0
   begin
-    if FStream.avail_out = 0 then
+    if FRawWritten - FStream.avail_in < ACount then
       ClearOutBuffer;
+
     Inc(FRawWritten, vLastAvail - FStream.avail_in);
     vLastAvail := FStream.avail_in;
 
@@ -407,6 +408,9 @@ begin
                                    FStream.avail_out, FStream.next_out,
                                    FStream.total_out) = BROTLI_FALSE then
       raise Exception.Create('Encoder error');
+
+    if BrotliEncoderHasMoreOutput(FState) = BROTLI_FALSE then
+      Break;
   end;
   Inc(FRawWritten,vLastAvail - FStream.avail_in);
   Write := ACount;
@@ -441,7 +445,7 @@ begin
   InitDecompress;
 end;
 
-procedure TBrotliDecompressionStream.InitDescompress;
+procedure TBrotliDecompressionStream.InitDecompress;
 begin
   FState := BrotliDecoderCreateInstance(nil, nil, nil);
   if FState = nil then
@@ -455,8 +459,8 @@ end;
 
 constructor TBrotliDecompressionStream.Create(ASource: TStream);
 begin
-  inherited Create(Asource);
-  InitDescompress;
+  inherited Create(ASource);
+  InitDecompress;
 end;
 
 destructor TBrotliDecompressionStream.Destroy;
@@ -501,7 +505,7 @@ function TBrotliDecompressionStream.Seek(const AOffset: Int64;
 var
   vBuf, vOff: int64;
 begin
-  vOff := Offset;
+  vOff := AOffset;
   if AOrigin = soCurrent then
     Inc(vOff, FRawRead)
   else if (AOrigin = soEnd) or (vOff < 0) then
