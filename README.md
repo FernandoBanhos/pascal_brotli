@@ -4,7 +4,7 @@ A pascal library, to compress and decompress with Brotli
 
 
 > [!CAUTION]
->  For now, only use the `TBrotliCompress` classes
+>  For now, only use the `TBrotliCompress` classes\
 >  The `TBrotliCompressionStream` and `TBrotliDecompressionStream` classes are not ready.
 
 \
