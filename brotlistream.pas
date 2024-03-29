@@ -58,6 +58,7 @@ type
 
   TCustomBrotliStream = class(TOwnerStream)
   protected
+    FState: Pointer;
     FStream: TBrotliStream;
     FBuffer: Pointer;
     FOnProgress: TNotifyEvent;
@@ -74,7 +75,6 @@ type
   private
     procedure ClearOutBuffer;
   protected
-    FState: Pointer;
     FRawWritten: int64;
     FCompressedWritten: int64;
   public
@@ -91,7 +91,6 @@ type
 
   TBrotliDecompressionStream = class(TCustomBrotliStream)
   protected
-    FState: Pointer;
     FRawRead: int64;
     FCompressedRead: int64;
     procedure Reset;
@@ -371,6 +370,10 @@ begin
       raise Exception.Create('Error Assigned BROTLI_PARAM_QUALITY');
     if BrotliEncoderSetParameter(FState, BROTLI_PARAM_STREAM_OFFSET, 4096) = BROTLI_FALSE then
       raise Exception.Create('Error Assigned BROTLI_PARAM_STREAM_OFFSET');
+    if BrotliEncoderSetParameter(FState, BROTLI_PARAM_SIZE_HINT , 4096) = BROTLI_FALSE then
+      raise Exception.Create('Error Assigned BROTLI_PARAM_SIZE_HINT ');
+    if BrotliEncoderSetParameter(FState, BROTLI_PARAM_LGWIN, BROTLI_DEFAULT_WINDOW) = BROTLI_FALSE then
+      raise Exception.Create('Error Assigned BROTLI_PARAM_LGWIN');
   end
   else
   begin
@@ -397,7 +400,7 @@ begin
   vLastAvail := ACount;;
   while True do // FStream.avail_in <> 0
   begin
-    if FRawWritten - FStream.avail_in < ACount then
+    if FStream.avail_out - FStream.avail_in < ACount then
       ClearOutBuffer;
 
     Inc(FRawWritten, vLastAvail - FStream.avail_in);
