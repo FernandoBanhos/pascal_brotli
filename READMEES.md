@@ -4,7 +4,7 @@ Una biblioteca pascal, para comprimir y descomprimir con Brotli
 
 
 > [!CAUTION]
->  Por ahora, utilice únicamente las clases `TBrotliCompress`\
+>  Por ahora, utilice únicamente la clase `TBrotliCompress`\
 >  Las clases `TBrotliCompressionStream` y `TBrotliDecompressionStream` no están listas.
 
 \
