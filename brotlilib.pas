@@ -47,18 +47,23 @@ const
   {$ENDIF}
 
 type
-  TBrotliSize = {$IFDEF CPU386} Integer {$ELSE} Int64 {$ENDIF};
-
   TBrotliEncoderMode = (BROTLI_MODE_GENERIC, BROTLI_MODE_TEXT, BROTLI_MODE_FONT);
+
   TBrotliEncoderOperation = (BROTLI_OPERATION_PROCESS, BROTLI_OPERATION_FLUSH,
                              BROTLI_OPERATION_FINISH, BROTLI_OPERATION_EMIT_METADATA);
+
   TBrotliEncoderParameter = (BROTLI_PARAM_MODE, BROTLI_PARAM_QUALITY, BROTLI_PARAM_LGWIN,
                              BROTLI_PARAM_LGBLOCK, BROTLI_PARAM_DISABLE_LITERAL_CONTEXT_MODELING,
                              BROTLI_PARAM_SIZE_HINT, BROTLI_PARAM_LARGE_WINDOW,
                              BROTLI_PARAM_NPOSTFIX, BROTLI_PARAM_NDIRECT,
                              BROTLI_PARAM_STREAM_OFFSET);
 
+  TBrotliDecoderResult = (BROTLI_DECODER_RESULT_ERROR, BROTLI_DECODER_RESULT_SUCCESS,
+                          BROTLI_DECODER_RESULT_NEEDS_MORE_INPUT,
+                          BROTLI_DECODER_RESULT_NEEDS_MORE_OUTPUT);
 
+  TBrotliDecoderParameter = (BROTLI_DECODER_PARAM_DISABLE_RING_BUFFER_REALLOCATION,
+                             BROTLI_DECODER_PARAM_LARGE_WINDOW);
 
   TBrotliVersion = record
     Major: Cardinal;
@@ -104,7 +109,7 @@ type
   end;
 
 const
-  BROTLI_DEFAULT_MODE = Ord(TBrotliEncoderMode.BROTLI_MODE_GENERIC);
+  BROTLI_DEFAULT_MODE = TBrotliEncoderMode.BROTLI_MODE_GENERIC;
   BROTLI_DEFAULT_QUALITY = 11;
   BROTLI_DEFAULT_WINDOW = 22;
   BROTLI_MAX_INPUT_BLOCK_BITS = 24;
@@ -126,41 +131,46 @@ var
                                       const Value: Cardinal): Integer; cdecl;
   BrotliEncoderMaxCompressedSize: function (const InputSize: Integer): Integer; cdecl;
   BrotliEncoderCompress: function(const quality: Integer; const lgwin: Integer;
-                                   const mode: Integer; const input_size: TBrotliSize;
-                                   const input_buffer: Pointer; out encoded_size: TBrotliSize;
+                                   const mode: Integer; const input_size: NativeUInt;
+                                   const input_buffer: Pointer; out encoded_size: NativeUInt;
                                    const encoded_buffer: Pointer): Integer; cdecl;
   BrotliEncoderCompressStream : function(state: Pointer;
                                          op: TBrotliEncoderOperation;
-                                         var available_in: TBrotliSize;
+                                         var available_in: NativeUInt;
                                          next_in: Pointer;
-                                         var available_out: TBrotliSize;
+                                         var available_out: NativeUInt;
                                          next_out: Pointer;
-                                         var total_out: TBrotliSize): Integer; cdecl;
+                                         total_out: Pointer): Integer; cdecl;
   BrotliEncoderTakeOutput : function(const state : Pointer;
-                                     var size : TBrotliSize) : Pointer; cdecl;
+                                     var size : NativeUInt) : Pointer; cdecl;
   BrotliEncoderHasMoreOutput : function(const state : pointer) : Integer; cdecl;
   BrotliEncoderIsFinished : function(const state : pointer) : Integer; cdecl;
   BrotliEncoderVersion: function : Cardinal; cdecl;
 
   // decode
   BrotliDecoderCreateInstance: function(const alloc_func, free_func, opaque: Pointer): Pointer; cdecl;
+  BrotliDecoderAttachDictionary: function(const state: Pointer; dict_type : Pointer;
+                                          data_size : NativeUInt; data : Pointer) : Integer; cdecl;
   BrotliDecoderDestroyInstance: procedure(const state: Pointer); cdecl;
   BrotliDecoderSetParameter: function(const state: Pointer;
                                       const BrotliDecoderParameter: Integer;
                                       const Value: Cardinal): Integer; cdecl;
 
-  BrotliDecoderDecompress : function(encoded_size: TBrotliSize; const encoded_buffer:
-                                      pointer; var decoded_size: TBrotliSize;
+  BrotliDecoderDecompress : function(encoded_size: NativeUInt; const encoded_buffer:
+                                      pointer; var decoded_size: NativeUInt;
                                       decoded_buffer: pointer): Integer; cdecl;
 
   BrotliDecoderDecompressStream : function(const state: Pointer;
-                                           var available_in: TBrotliSize;
-                                           var next_in: Pointer;
-                                           var available_out: TBrotliSize;
-                                           var next_out: Pointer;
-                                           total_out: Pointer): Integer; cdecl;
+                                           var available_in: NativeUInt;
+                                           next_in: Pointer;
+                                           var available_out: NativeUInt;
+                                           next_out: Pointer;
+                                           total_out: Pointer): TBrotliDecoderResult; cdecl;
   BrotliDecoderGetErrorCode : function(const state: Pointer) : Integer; cdecl;
+  BrotliDecoderHasMoreOutput : function(const state: Pointer) : Integer; cdecl;
   BrotliDecoderErrorString : function(const errorcode : integer) : PChar; cdecl;
+  BrotliDecoderIsUsed : function(const state: Pointer) : Integer; cdecl;
+  BrotliDecoderTakeOutput : function(const state: Pointer; var size : NativeUInt) : Pointer; cdecl;
   BrotliDecoderVersion: function: Cardinal; cdecl;
 
   // common
@@ -252,13 +262,17 @@ begin
       Exit(NilHandle);
 
     BrotliDecoderCreateInstance := GetProcAddress(FHandleDecode, 'BrotliDecoderCreateInstance');
+    BrotliDecoderAttachDictionary := GetProcAddress(FHandleDecode, 'BrotliDecoderAttachDictionary');
     BrotliDecoderDestroyInstance := GetProcAddress(FHandleDecode, 'BrotliDecoderDestroyInstance');
     BrotliDecoderSetParameter := GetProcAddress(FHandleDecode, 'BrotliDecoderSetParameter');
     BrotliDecoderDecompressStream := GetProcAddress(FHandleDecode, 'BrotliDecoderDecompressStream');
     BrotliDecoderVersion := GetProcAddress(FHandleDecode, 'BrotliDecoderVersion');
     BrotliDecoderDecompress := GetProcAddress(FHandleDecode, 'BrotliDecoderDecompress');
     BrotliDecoderGetErrorCode := GetProcAddress(FHandleDecode, 'BrotliDecoderGetErrorCode');
+    BrotliDecoderHasMoreOutput := GetProcAddress(FHandleDecode, 'BrotliDecoderHasMoreOutput');
     BrotliDecoderErrorString := GetProcAddress(FHandleDecode, 'BrotliDecoderErrorString');
+    BrotliDecoderIsUsed := GetProcAddress(FHandleDecode, 'BrotliDecoderIsUsed');
+    BrotliDecoderTakeOutput := GetProcAddress(FHandleDecode, 'BrotliDecoderTakeOutput');
 
     Result := FHandleDecode;
   finally
