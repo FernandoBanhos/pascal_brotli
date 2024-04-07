@@ -2,11 +2,6 @@
 
 Uma biblioteca em Pascal, para compactar e descompactar com Brotli
 
-
-> [!CAUTION]
->  Usem por enquanto somente a classe `TBrotliCompress`\
->  As classes `TBrotliCompressionStream` e `TBrotliDecompressionStream` não estão prontas.
-
 \
 <a href=".\READMEPT.md"><img src="https://img.shields.io/badge/Traduzir-PT--BR-blue" /></a><a href=".\READMEES.md"><img src="https://img.shields.io/badge/Traducir-ES--ES-blue" /></a><a href=".\README.md"><img src="https://img.shields.io/badge/Translate-EN--US-blue" /></a>\
 \

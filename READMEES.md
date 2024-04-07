@@ -2,11 +2,6 @@
 
 Una biblioteca pascal, para comprimir y descomprimir con Brotli
 
-
-> [!CAUTION]
->  Por ahora, utilice únicamente la clase `TBrotliCompress`\
->  Las clases `TBrotliCompressionStream` y `TBrotliDecompressionStream` no están listas.
-
 \
 <a href=".\READMEPT.md"><img src="https://img.shields.io/badge/Traduzir-PT--BR-blue" /></a><a href=".\READMEES.md"><img src="https://img.shields.io/badge/Traducir-ES--ES-blue" /></a><a href=".\README.md"><img src="https://img.shields.io/badge/Translate-EN--US-blue" /></a>\
 \
