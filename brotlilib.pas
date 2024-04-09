@@ -1,4 +1,4 @@
-{
+﻿{
   _                      _     _   _ 
  | |                    | |   | | (_)
  | |__    _ __    ___   | |_  | |  _ 
@@ -46,7 +46,15 @@ const
     BrotliDec = 'brotlidec.so';
   {$ENDIF}
 
+  {$IFNDEF FPC}
+    NilHandle = HMODULE(0);
+  {$ENDIF}
+
 type
+  {$IFNDEF FPC}
+    TLibHandle = HMODULE;
+  {$ENDIF}
+
   TBrotliEncoderMode = (BROTLI_MODE_GENERIC, BROTLI_MODE_TEXT, BROTLI_MODE_FONT);
 
   TBrotliEncoderOperation = (BROTLI_OPERATION_PROCESS, BROTLI_OPERATION_FLUSH,
@@ -127,7 +135,7 @@ var
   BrotliEncoderCreateInstance: function(const alloc_func, free_func, opaque: Pointer): Pointer; cdecl;
   BrotliEncoderDestroyInstance: procedure(const state: Pointer); cdecl;
   BrotliEncoderSetParameter: function(const state: Pointer;
-                                      const BrotliEncoderParameter: TBrotliEncoderParameter;
+                                      const BrotliEncoderParameter: integer;
                                       const Value: Cardinal): Integer; cdecl;
   BrotliEncoderMaxCompressedSize: function (const InputSize: Integer): Integer; cdecl;
   BrotliEncoderCompress: function(const quality: Integer; const lgwin: Integer;
@@ -135,7 +143,7 @@ var
                                    const input_buffer: Pointer; out encoded_size: NativeUInt;
                                    const encoded_buffer: Pointer): Integer; cdecl;
   BrotliEncoderCompressStream : function(state: Pointer;
-                                         op: TBrotliEncoderOperation;
+                                         op: integer;
                                          var available_in: NativeUInt;
                                          next_in: Pointer;
                                          var available_out: NativeUInt;
@@ -153,7 +161,7 @@ var
                                           data_size : NativeUInt; data : Pointer) : Integer; cdecl;
   BrotliDecoderDestroyInstance: procedure(const state: Pointer); cdecl;
   BrotliDecoderSetParameter: function(const state: Pointer;
-                                      const BrotliDecoderParameter: Integer;
+                                      const BrotliDecoderParameter: integer;
                                       const Value: Cardinal): Integer; cdecl;
 
   BrotliDecoderDecompress : function(encoded_size: NativeUInt; const encoded_buffer:
@@ -165,7 +173,7 @@ var
                                            next_in: Pointer;
                                            var available_out: NativeUInt;
                                            next_out: Pointer;
-                                           total_out: Pointer): TBrotliDecoderResult; cdecl;
+                                           total_out: Pointer): integer; cdecl;
   BrotliDecoderGetErrorCode : function(const state: Pointer) : Integer; cdecl;
   BrotliDecoderHasMoreOutput : function(const state: Pointer) : Integer; cdecl;
   BrotliDecoderErrorString : function(const errorcode : integer) : PChar; cdecl;
@@ -307,7 +315,7 @@ end;
 class procedure TBrotli.Load(const ACommon, AEncode, ADecode: TFileName);
 begin
   if (ACommon = '') or (AEncode = '') or (ADecode = '') then
-    raise EArgumentException.Create('Lib Brotli possui 3 livrarias');
+    raise EArgumentException.Create('Brotli has 3 libraries');
 
   InternalLoadCommon(ACommon);
   InternalLoadEncode(AEncode);
@@ -374,13 +382,13 @@ end;
 class procedure TBrotli.Check;
 begin
   if FHandleCommon = NilHandle then
-    raise Exception.CreateFmt('Biblioteca %s não encontrada', [BrotliCommon]);
+    raise Exception.CreateFmt('Library %s not found', [BrotliCommon]);
 
   if FHandleEncode = NilHandle then
-    raise Exception.CreateFmt('Biblioteca %s não encontrada', [BrotliEnc]);
+    raise Exception.CreateFmt('Library %s not found', [BrotliEnc]);
 
   if FHandleDecode = NilHandle then
-    raise Exception.CreateFmt('Biblioteca %s não encontrada', [BrotliDec]);
+    raise Exception.CreateFmt('Library %s not found', [BrotliDec]);
 end;
 
 initialization

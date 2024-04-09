@@ -45,13 +45,12 @@ type
 
   { TCustomBrotliStream }
 
-  TCustomBrotliStream = class(TOwnerStream)
-  protected
-    FOnProgress: TNotifyEvent;
-    procedure Progress(ASender: TObject);
-    property OnProgress: TNotifyEvent read FOnProgress write FOnProgress;
+  TCustomBrotliStream = class(TStream)
+  private
+    FSource : TStream;
   public
-    constructor Create(AStream: TStream);
+    constructor Create(ASource: TStream);
+    function Seek(const Offset: Int64; Origin: TSeekOrigin): Int64; override;
   end;
 
   { TBrotliCompressionStream }
@@ -68,8 +67,6 @@ type
 
     procedure Flush;
     function Write(const ABuffer; ACount: Longint): Longint; override;
-
-    property OnProgress;
   end;
 
   { TBrotliDecompressionStream }
@@ -78,19 +75,16 @@ type
   private
     FState: Pointer;
     FRawRead: int64;
-    FLastResult : TBrotliDecoderResult;
+    FLastResult : integer;
     FInput : Pointer;
     FNextIn : Pointer;
     FAvailableIn : NativeUInt;
     FTotalInput : NativeUInt;
     FMoreOutput : boolean;
-  protected
-    function GetPosition: Int64; override;
   public
     constructor Create(ASource: TStream);
     destructor Destroy; override;
     function Read(var ABuffer; ACount: Longint): Longint; override;
-    property OnProgress;
   end;
 
 
@@ -103,7 +97,7 @@ var
   vState : Pointer;
   vInput, vOutput : Pointer;
   vNextIn, vNextOut : Pointer;
-  vResult : TBrotliDecoderResult;
+  vResult : integer;
   vFileBufferSize : Integer;
   vAvailableIn, vAvailableOut, vOut : NativeUInt;
   vDecompressOK, vMoreOutput : boolean;
@@ -121,20 +115,22 @@ begin
 
   try
     vState := BrotliDecoderCreateInstance(nil, nil, nil);
-    while AStream.Position < AStream.Size do begin
+    while AStream.Position < AStream.Size do
+    begin
       vAvailableIn := AStream.Read(vInput^, vFileBufferSize);
 
       vNextIn := vInput;
 
       vMoreOutput := True;
       vDecompressOK := True;
-      while (vDecompressOK and ((vAvailableIn > 0) or vMoreOutput)) do begin
+      while (vDecompressOK and ((vAvailableIn > 0) or vMoreOutput)) do
+      begin
         vAvailableOut := vOut;
         vNextOut := vOutput;
 
         vResult := BrotliDecoderDecompressStream(vState, vAvailableIn, @vNextIn,
                                                  vAvailableOut, @vNextOut, nil);
-        vDecompressOK := vResult <> BROTLI_DECODER_RESULT_ERROR;
+        vDecompressOK := vResult <> Ord(BROTLI_DECODER_RESULT_ERROR);
         vMoreOutput := BrotliDecoderHasMoreOutput(vState) = BROTLI_TRUE;
 
         if vDecompressOK then
@@ -172,16 +168,17 @@ begin
   GetMem(vOutput, vFileBufferSize);
 
   try
-    while AStream.Position < AStream.Size do begin
+    while AStream.Position < AStream.Size do
+    begin
       vAvailableIn := AStream.Read(vInput^, vFileBufferSize);
 
       vState := BrotliEncoderCreateInstance(nil, nil, nil);
       try
-        if BrotliEncoderSetParameter(vState, BROTLI_PARAM_QUALITY, FLevel) = 0 then
+        if BrotliEncoderSetParameter(vState, Ord(BROTLI_PARAM_QUALITY), FLevel) = 0 then
           Exit;
-        if BrotliEncoderSetParameter(vState, BROTLI_PARAM_LGWIN, 22) = 0 then
+        if BrotliEncoderSetParameter(vState, Ord(BROTLI_PARAM_LGWIN), 22) = 0 then
           Exit;
-        if BrotliEncoderSetParameter(vState, BROTLI_PARAM_STREAM_OFFSET, AStream.Position - vAvailableIn) = 0 then
+        if BrotliEncoderSetParameter(vState, Ord(BROTLI_PARAM_STREAM_OFFSET), AStream.Position - vAvailableIn) = 0 then
           Exit;
 
         if AStream.Position >= AStream.Size then
@@ -193,11 +190,12 @@ begin
 
         vCompressOK := True;
         vMoreOutput := True;
-        while (vCompressOK and ((vAvailableIn > 0) or vMoreOutput)) do begin
+        while (vCompressOK and ((vAvailableIn > 0) or vMoreOutput)) do
+        begin
           vAvailableOut := vFileBufferSize;
           vNextOut := vOutput;
 
-          vCompressOK := BrotliEncoderCompressStream(vState, vOperation,
+          vCompressOK := BrotliEncoderCompressStream(vState, Ord(vOperation),
                                                      vAvailableIn, @vNextIn,
                                                      vAvailableOut, @vNextOut, nil) = BROTLI_TRUE;
           vMoreOutput := BrotliEncoderHasMoreOutput(vState) = BROTLI_TRUE;
@@ -288,16 +286,20 @@ end;
 
 { TCustomBrotliStream }
 
-procedure TCustomBrotliStream.Progress(ASender: TObject);
+constructor TCustomBrotliStream.Create(ASource: TStream);
 begin
-  if FOnProgress <> nil then
-    FOnProgress(ASender);
+  Assert(ASource <> nil);
+  inherited Create;
+  FSource := ASource;
 end;
 
-constructor TCustomBrotliStream.Create(AStream: TStream);
+function TCustomBrotliStream.Seek(const Offset: Int64;
+  Origin: TSeekOrigin): Int64;
 begin
-  Assert(AStream <> nil);
-  inherited Create(AStream);
+  if (Offset = 0) and (Origin = soCurrent) then
+    Result := FSource.Position
+  else
+    inherited;
 end;
 
 { TBrotliCompressionStream }
@@ -329,27 +331,30 @@ var
   vOperation : TBrotliEncoderOperation;
   vCompressOK : boolean;
 begin
+  if not TBrotli.IsLoaded then
+    Exit;
+
   vAvailableIn := 0;
   vOperation := BROTLI_OPERATION_FINISH;
   vAvailableOut := 1024;
-  vOutput := GetMem(vAvailableOut);
+  vOutput := GetMemory(vAvailableOut);
   vNextOut := vOutput;
 
   FState := BrotliEncoderCreateInstance(nil, nil, nil);
   try
-    if BrotliEncoderSetParameter(FState, BROTLI_PARAM_QUALITY, FLevel) = 0 then
+    if BrotliEncoderSetParameter(FState, Ord(BROTLI_PARAM_QUALITY), FLevel) = 0 then
       Exit;
-    if BrotliEncoderSetParameter(FState, BROTLI_PARAM_LGWIN, 22) = 0 then
+    if BrotliEncoderSetParameter(FState, Ord(BROTLI_PARAM_LGWIN), 22) = 0 then
       Exit;
-    if BrotliEncoderSetParameter(FState, BROTLI_PARAM_STREAM_OFFSET, FRawWritten) = 0 then
+    if BrotliEncoderSetParameter(FState, Ord(BROTLI_PARAM_STREAM_OFFSET), FRawWritten) = 0 then
       Exit;
 
-    vCompressOK := BrotliEncoderCompressStream(FState, vOperation,
+    vCompressOK := BrotliEncoderCompressStream(FState, Ord(vOperation),
                                                vAvailableIn, nil,
                                                vAvailableOut, @vNextOut, nil) = BROTLI_TRUE;
 
     if vCompressOK then
-      Source.Write(vOutput^, 1024 - vAvailableOut)
+      FSource.Write(vOutput^, 1024 - vAvailableOut)
     else
       raise Exception.Create('Error on finished compress');
   finally
@@ -365,6 +370,8 @@ var
   vCompressOK, vMoreOutput : boolean;
   vOperation : TBrotliEncoderOperation;
 begin
+  TBrotli.Check;
+
   if ACount > High(NativeUInt) then
   begin
     raise Exception.CreateFmt('The buffer size cannot exceed %d',[High(NativeUInt)]);
@@ -376,11 +383,13 @@ begin
 
   FState := BrotliEncoderCreateInstance(nil, nil, nil);
   try
-    if BrotliEncoderSetParameter(FState, BROTLI_PARAM_QUALITY, FLevel) = 0 then
+    if FState = nil then
       Exit;
-    if BrotliEncoderSetParameter(FState, BROTLI_PARAM_LGWIN, 22) = 0 then
+    if BrotliEncoderSetParameter(FState, Ord(BROTLI_PARAM_QUALITY), FLevel) = 0 then
       Exit;
-    if BrotliEncoderSetParameter(FState, BROTLI_PARAM_STREAM_OFFSET, FRawWritten) = 0 then
+    if BrotliEncoderSetParameter(FState, Ord(BROTLI_PARAM_LGWIN), 22) = 0 then
+      Exit;
+    if BrotliEncoderSetParameter(FState, Ord(BROTLI_PARAM_STREAM_OFFSET), FRawWritten) = 0 then
       Exit;
 
     FRawWritten := FRawWritten + vAvailableIn;
@@ -395,11 +404,11 @@ begin
       vAvailableOut := ACount;
       vNextOut := vOutput;
 
-      vCompressOK := BrotliEncoderCompressStream(FState, vOperation,
+      vCompressOK := BrotliEncoderCompressStream(FState, Ord(vOperation),
                                                  vAvailableIn, @vNextIn,
                                                  vAvailableOut, @vNextOut, nil) = BROTLI_TRUE;
       vMoreOutput := BrotliEncoderHasMoreOutput(FState) = BROTLI_TRUE;
-      Source.Write(vOutput^, ACount - vAvailableOut);
+      FSource.Write(vOutput^, ACount - vAvailableOut);
     end;
   finally
     BrotliEncoderDestroyInstance(FState);
@@ -410,11 +419,6 @@ end;
 
 { TBrotliDecompressionStream }
 
-function TBrotliDecompressionStream.GetPosition: int64;
-begin
-  Result := FRawRead;
-end;
-
 constructor TBrotliDecompressionStream.Create(ASource: TStream);
 begin
   inherited Create(ASource);
@@ -423,7 +427,7 @@ begin
   if FState = nil then
     raise Exception.Create('Decoder not created');
 
-  FLastResult := BROTLI_DECODER_RESULT_NEEDS_MORE_INPUT;
+  FLastResult := Ord(BROTLI_DECODER_RESULT_NEEDS_MORE_INPUT);
   FMoreOutput := False;
 end;
 
@@ -447,13 +451,15 @@ var
 begin
   Result := 0;
 
+  TBrotli.Check;
+
   if ACount > High(NativeUInt) then
   begin
     raise Exception.CreateFmt('The buffer size cannot exceed %d', [High(NativeUInt)]);
     Exit;
   end;
 
-  if (FLastResult = BROTLI_DECODER_RESULT_NEEDS_MORE_INPUT) and
+  if (FLastResult = Ord(BROTLI_DECODER_RESULT_NEEDS_MORE_INPUT)) and
      (not FMoreOutput) then
   begin
     FTotalInput := ACount;
@@ -463,10 +469,10 @@ begin
 
     GetMem(FInput, FTotalInput);
 
-    FAvailableIn := Source.Read(FInput^, FTotalInput);
+    FAvailableIn := FSource.Read(FInput^, FTotalInput);
     FNextIn := FInput;
   end
-  else if (Source.Position >= Source.Size) and (not FMoreOutput) then
+  else if (FSource.Position >= FSource.Size) and (not FMoreOutput) then
   begin
     Exit;
   end;
@@ -478,7 +484,7 @@ begin
 
   FLastResult := BrotliDecoderDecompressStream(FState, FAvailableIn, @FNextIn,
                                                vAvailableOut, @vNextOut, nil);
-  vDecompressOK := FLastResult <> BROTLI_DECODER_RESULT_ERROR;
+  vDecompressOK := FLastResult <> Ord(BROTLI_DECODER_RESULT_ERROR);
   FMoreOutput := BrotliDecoderHasMoreOutput(FState) = BROTLI_TRUE;
 
   if not vDecompressOK then
