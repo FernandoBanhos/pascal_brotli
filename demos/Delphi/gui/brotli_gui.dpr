@@ -2,13 +2,13 @@ program brotli_gui;
 
 uses
   Vcl.Forms,
-  umain in 'umain.pas' {Form1};
+  umain in 'umain.pas' {fMain};
 
 {$R *.res}
 
 begin
   Application.Initialize;
   Application.MainFormOnTaskbar := True;
-  Application.CreateForm(TForm1, Form1);
+  Application.CreateForm(TfMain, fMain);
   Application.Run;
 end.
