@@ -27,7 +27,6 @@
       </Unit>
       <Unit>
         <Filename Value="..\..\..\brotlistream.pas"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
         <TopLine Value="478"/>
         <CursorPos X="9" Y="194"/>
@@ -36,9 +35,10 @@
       </Unit>
       <Unit>
         <Filename Value="..\..\..\brotlilib.pas"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="2"/>
-        <TopLine Value="139"/>
-        <CursorPos X="53" Y="154"/>
+        <TopLine Value="193"/>
+        <CursorPos X="35" Y="208"/>
         <UsageCount Value="10"/>
         <Loaded Value="True"/>
       </Unit>

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CONFIG>
+  <ProjectSession>
+    <PathDelim Value="\"/>
+    <Version Value="12"/>
+    <BuildModes Active="Default"/>
+    <Units>
+      <Unit>
+        <Filename Value="brotli_console.lpr"/>
+        <IsPartOfProject Value="True"/>
+        <IsVisibleTab Value="True"/>
+        <TopLine Value="91"/>
+        <CursorPos X="49" Y="107"/>
+        <UsageCount Value="20"/>
+        <Loaded Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="D:\fpcupdeluxe\laz32\fpcsrc\packages\fcl-base\src\custapp.pp"/>
+        <UnitName Value="CustApp"/>
+        <EditorIndex Value="1"/>
+        <TopLine Value="68"/>
+        <CursorPos X="14" Y="97"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit>
+    </Units>
+    <JumpHistory HistoryIndex="9">
+      <Position>
+        <Filename Value="D:\fpcupdeluxe\laz32\fpcsrc\packages\fcl-base\src\custapp.pp"/>
+        <Caret Line="76" Column="28" TopLine="63"/>
+      </Position>
+      <Position>
+        <Filename Value="brotli_console.lpr"/>
+        <Caret Line="34" Column="18" TopLine="13"/>
+      </Position>
+      <Position>
+        <Filename Value="brotli_console.lpr"/>
+        <Caret Line="38" Column="5" TopLine="13"/>
+      </Position>
+      <Position>
+        <Filename Value="brotli_console.lpr"/>
+        <Caret Line="62" Column="50" TopLine="28"/>
+      </Position>
+      <Position>
+        <Filename Value="brotli_console.lpr"/>
+        <Caret Line="24" Column="25" TopLine="10"/>
+      </Position>
+      <Position>
+        <Filename Value="brotli_console.lpr"/>
+        <Caret Line="23" Column="23" TopLine="6"/>
+      </Position>
+      <Position>
+        <Filename Value="brotli_console.lpr"/>
+        <Caret Line="95" TopLine="52"/>
+      </Position>
+      <Position>
+        <Filename Value="brotli_console.lpr"/>
+        <Caret Line="9" Column="53"/>
+      </Position>
+      <Position>
+        <Filename Value="brotli_console.lpr"/>
+        <Caret Line="20" Column="70"/>
+      </Position>
+      <Position>
+        <Filename Value="brotli_console.lpr"/>
+        <Caret Line="9" Column="43" TopLine="55"/>
+      </Position>
+    </JumpHistory>
+    <RunParams>
+      <FormatVersion Value="2"/>
+      <Modes ActiveMode=""/>
+    </RunParams>
+  </ProjectSession>
+</CONFIG>
