@@ -8,18 +8,17 @@
       <Unit>
         <Filename Value="brotli_console.lpr"/>
         <IsPartOfProject Value="True"/>
-        <IsVisibleTab Value="True"/>
-        <TopLine Value="50"/>
-        <CursorPos X="32" Y="76"/>
-        <UsageCount Value="22"/>
+        <TopLine Value="91"/>
+        <CursorPos X="49" Y="107"/>
+        <UsageCount Value="21"/>
         <Loaded Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="D:\fpcupdeluxe\laz32\fpcsrc\packages\fcl-base\src\custapp.pp"/>
         <UnitName Value="CustApp"/>
-        <EditorIndex Value="4"/>
-        <TopLine Value="476"/>
-        <CursorPos X="24" Y="512"/>
+        <EditorIndex Value="3"/>
+        <TopLine Value="68"/>
+        <CursorPos X="14" Y="97"/>
         <UsageCount Value="10"/>
         <Loaded Value="True"/>
       </Unit>
@@ -29,7 +28,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="MetaDarkStyleDSGNOptionsFrame"/>
-        <EditorIndex Value="2"/>
+        <EditorIndex Value="1"/>
         <TopLine Value="54"/>
         <CursorPos X="29" Y="56"/>
         <UsageCount Value="10"/>
@@ -39,21 +38,14 @@
       <Unit>
         <Filename Value="..\..\..\..\metadarkstyle\src\udarkstyle.pas"/>
         <UnitName Value="uDarkStyle"/>
-        <EditorIndex Value="3"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="2"/>
         <TopLine Value="248"/>
         <UsageCount Value="10"/>
         <Loaded Value="True"/>
       </Unit>
-      <Unit>
-        <Filename Value="..\..\..\brotlistream.pas"/>
-        <EditorIndex Value="1"/>
-        <TopLine Value="41"/>
-        <CursorPos X="3" Y="58"/>
-        <UsageCount Value="10"/>
-        <Loaded Value="True"/>
-      </Unit>
     </Units>
-    <JumpHistory HistoryIndex="20">
+    <JumpHistory HistoryIndex="8">
       <Position>
         <Filename Value="D:\fpcupdeluxe\laz32\fpcsrc\packages\fcl-base\src\custapp.pp"/>
         <Caret Line="76" Column="28" TopLine="63"/>
@@ -89,54 +81,6 @@
       <Position>
         <Filename Value="brotli_console.lpr"/>
         <Caret Line="20" Column="70"/>
-      </Position>
-      <Position>
-        <Filename Value="brotli_console.lpr"/>
-        <Caret Line="107" Column="28" TopLine="83"/>
-      </Position>
-      <Position>
-        <Filename Value="brotli_console.lpr"/>
-        <Caret Line="18" Column="21" TopLine="7"/>
-      </Position>
-      <Position>
-        <Filename Value="brotli_console.lpr"/>
-        <Caret Line="32" Column="15" TopLine="29"/>
-      </Position>
-      <Position>
-        <Filename Value="D:\fpcupdeluxe\laz32\fpcsrc\packages\fcl-base\src\custapp.pp"/>
-        <Caret Line="75" Column="19" TopLine="57"/>
-      </Position>
-      <Position>
-        <Filename Value="D:\fpcupdeluxe\laz32\fpcsrc\packages\fcl-base\src\custapp.pp"/>
-        <Caret Line="529" Column="3" TopLine="522"/>
-      </Position>
-      <Position>
-        <Filename Value="D:\fpcupdeluxe\laz32\fpcsrc\packages\fcl-base\src\custapp.pp"/>
-        <Caret Line="70" Column="14" TopLine="54"/>
-      </Position>
-      <Position>
-        <Filename Value="brotli_console.lpr"/>
-        <Caret Line="37" Column="9" TopLine="29"/>
-      </Position>
-      <Position>
-        <Filename Value="brotli_console.lpr"/>
-        <Caret Line="22" Column="19" TopLine="5"/>
-      </Position>
-      <Position>
-        <Filename Value="brotli_console.lpr"/>
-        <Caret Line="78" Column="26" TopLine="58"/>
-      </Position>
-      <Position>
-        <Filename Value="brotli_console.lpr"/>
-        <Caret Line="23" Column="19" TopLine="7"/>
-      </Position>
-      <Position>
-        <Filename Value="brotli_console.lpr"/>
-        <Caret Line="76" Column="3" TopLine="67"/>
-      </Position>
-      <Position>
-        <Filename Value="brotli_console.lpr"/>
-        <Caret Line="23" Column="22"/>
       </Position>
     </JumpHistory>
     <RunParams>
