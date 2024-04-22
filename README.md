@@ -8,3 +8,5 @@ A pascal library, to compress and decompress with Brotli
 
 [Brotli repository - GitHUB](https://github.com/google/brotli/tree/master)  
 [Brotli documentation](https://www.brotli.org)
+
+<div><a href="" onclick="alert('oi')"><img src="https://img.shields.io/badge/Traduzir-PT--BR-blue" /></a></div>
