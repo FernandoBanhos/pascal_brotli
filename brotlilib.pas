@@ -13,7 +13,7 @@
  
  vs 1.0
  date: March 15, 2024		 
- unit created for handled the livrary
+ unit created for handled the library
 }
 
 unit brotlilib;
