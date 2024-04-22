@@ -2,8 +2,9 @@
 
 Uma biblioteca em Pascal, para compactar e descompactar com Brotli
 
-\
-<a href=".\READMEPT.md"><img src="https://img.shields.io/badge/Traduzir-PT--BR-blue" /></a><a href=".\READMEES.md"><img src="https://img.shields.io/badge/Traducir-ES--ES-blue" /></a><a href=".\README.md"><img src="https://img.shields.io/badge/Translate-EN--US-blue" /></a>\
-\
-<a href="https://github.com/google/brotli/tree/master">Repositório Brotli - GitHUB</a>\
-<a href="https://www.brotli.org">Documentação Brotli</a>
+[<picture><img src="https://img.shields.io/badge/Traduzir-PT--BR-blue" /></picture>](./READMEPT.md)
+[<picture><img src="https://img.shields.io/badge/Traduzir-ES--ES-blue" /></picture>](./READMEES.md)
+[<picture><img src="https://img.shields.io/badge/Traduzir-EN--US-blue" /></picture>](./README.md)
+
+[Repositório Brotli - GitHUB](https://github.com/google/brotli/tree/master)  
+[Documentação Brotli](https://www.brotli.org)
