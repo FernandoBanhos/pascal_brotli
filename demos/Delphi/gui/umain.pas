@@ -16,9 +16,12 @@ type
     btarget: TSpeedButton;
     bCompress: TSpeedButton;
     bDecompress: TSpeedButton;
-    SpeedButton3: TSpeedButton;
+    bsource: TSpeedButton;
+    diagOpen: TOpenDialog;
     procedure bCompressClick(Sender: TObject);
     procedure bDecompressClick(Sender: TObject);
+    procedure bsourceClick(Sender: TObject);
+    procedure btargetClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -90,6 +93,18 @@ begin
     brotli.Free;
     filebuf.Free;
   end;
+end;
+
+procedure TfMain.bsourceClick(Sender: TObject);
+begin
+  if diagOpen.Execute then
+    esource.Text := diagOpen.FileName;
+end;
+
+procedure TfMain.btargetClick(Sender: TObject);
+begin
+  if diagOpen.Execute then
+    etarget.Text := diagOpen.FileName;
 end;
 
 end.

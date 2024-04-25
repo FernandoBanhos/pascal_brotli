@@ -119,6 +119,7 @@ object fMain: TfMain
       FE00EBFBFE00EBFBFE00EBFBFE00EBFBFE00EBFBFE00EBFBFE00EBFBFE00EBFB
       FE00EBFBFE00EBFBFE00EBFBFE00EBFBFE00EBFBFE00EBFBFE00}
     NumGlyphs = 2
+    OnClick = btargetClick
   end
   object bCompress: TSpeedButton
     Left = 24
@@ -306,7 +307,7 @@ object fMain: TfMain
     NumGlyphs = 2
     OnClick = bDecompressClick
   end
-  object SpeedButton3: TSpeedButton
+  object bsource: TSpeedButton
     Left = 571
     Top = 20
     Width = 23
@@ -396,6 +397,7 @@ object fMain: TfMain
       FE00EBFBFE00EBFBFE00EBFBFE00EBFBFE00EBFBFE00EBFBFE00EBFBFE00EBFB
       FE00EBFBFE00EBFBFE00EBFBFE00EBFBFE00EBFBFE00EBFBFE00}
     NumGlyphs = 2
+    OnClick = bsourceClick
   end
   object esource: TEdit
     Left = 86
@@ -403,7 +405,6 @@ object fMain: TfMain
     Width = 483
     Height = 21
     TabOrder = 0
-    Text = 'd:\lazarus.exe'
   end
   object etarget: TEdit
     Left = 86
@@ -411,6 +412,9 @@ object fMain: TfMain
     Width = 483
     Height = 21
     TabOrder = 1
-    Text = 'd:\lazarus.br'
+  end
+  object diagOpen: TOpenDialog
+    Left = 408
+    Top = 80
   end
 end
