@@ -21,9 +21,12 @@ type
     imgList: TImageList;
     Label1: TLabel;
     Label2: TLabel;
-    SpeedButton3: TSpeedButton;
+    diagOpen: TOpenDialog;
+    bSource: TSpeedButton;
     procedure bCompressClick(Sender: TObject);
     procedure bDecompressClick(Sender: TObject);
+    procedure bSourceClick(Sender: TObject);
+    procedure btargetClick(Sender: TObject);
   private
 
   public
@@ -97,6 +100,18 @@ begin
     brotli.Free;
     filebuf.Free;
   end;
+end;
+
+procedure TForm1.bSourceClick(Sender: TObject);
+begin
+  if diagOpen.Execute then
+    esource.Text := diagOpen.FileName;
+end;
+
+procedure TForm1.btargetClick(Sender: TObject);
+begin
+  if diagOpen.Execute then
+    etarget.Text := diagOpen.FileName;
 end;
 
 end.

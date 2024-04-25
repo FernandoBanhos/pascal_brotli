@@ -8,7 +8,6 @@ object Form1: TForm1
   ClientHeight = 126
   ClientWidth = 613
   Position = poScreenCenter
-  LCLVersion = '3.0.0.3'
   object Label1: TLabel
     Left = 24
     Height = 15
@@ -29,7 +28,7 @@ object Form1: TForm1
     Top = 13
     Width = 483
     TabOrder = 0
-    Text = 'd:\lazarus.exe'
+    Text = ' '
   end
   object etarget: TEdit
     Left = 86
@@ -37,7 +36,7 @@ object Form1: TForm1
     Top = 40
     Width = 483
     TabOrder = 1
-    Text = 'd:\lazarus.br'
+    Text = ' '
   end
   object btarget: TSpeedButton
     Left = 571
@@ -46,6 +45,7 @@ object Form1: TForm1
     Width = 23
     Images = imgList
     ImageIndex = 0
+    OnClick = btargetClick
   end
   object bCompress: TSpeedButton
     Left = 24
@@ -237,13 +237,14 @@ object Form1: TForm1
     ImageIndex = 2
     OnClick = bDecompressClick
   end
-  object SpeedButton3: TSpeedButton
+  object bSource: TSpeedButton
     Left = 571
     Height = 23
     Top = 14
     Width = 23
     Images = imgList
     ImageIndex = 0
+    OnClick = bSourceClick
   end
   object imgList: TImageList
     Left = 369
@@ -296,5 +297,9 @@ object Form1: TForm1
       C7FE9EFAD4E33B7BB2E342455CFEB682E83D4B67AEF70521603FF6F7D4D35AF3
       B2FF617CB0C6A5FD0FF8ECD6F3
     }
+  end
+  object diagOpen: TOpenDialog
+    Left = 440
+    Top = 69
   end
 end

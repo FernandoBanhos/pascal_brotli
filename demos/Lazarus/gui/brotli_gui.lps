@@ -12,16 +12,18 @@
         <WindowIndex Value="-1"/>
         <TopLine Value="-1"/>
         <CursorPos X="-1" Y="-1"/>
-        <UsageCount Value="20"/>
+        <UsageCount Value="21"/>
       </Unit>
       <Unit>
         <Filename Value="umain.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="Form1"/>
+        <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <TopLine Value="14"/>
-        <CursorPos X="25" Y="89"/>
-        <UsageCount Value="20"/>
+        <IsVisibleTab Value="True"/>
+        <TopLine Value="80"/>
+        <CursorPos X="18" Y="108"/>
+        <UsageCount Value="21"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit>
@@ -35,15 +37,14 @@
       </Unit>
       <Unit>
         <Filename Value="..\..\..\brotlilib.pas"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="2"/>
-        <TopLine Value="193"/>
-        <CursorPos X="35" Y="208"/>
+        <TopLine Value="118"/>
+        <CursorPos X="59" Y="211"/>
         <UsageCount Value="10"/>
         <Loaded Value="True"/>
       </Unit>
     </Units>
-    <JumpHistory HistoryIndex="13">
+    <JumpHistory HistoryIndex="16">
       <Position>
         <Filename Value="umain.pas"/>
       </Position>
@@ -98,6 +99,18 @@
       <Position>
         <Filename Value="umain.pas"/>
         <Caret Line="86" Column="56" TopLine="70"/>
+      </Position>
+      <Position>
+        <Filename Value="umain.pas"/>
+        <Caret Line="89" Column="25" TopLine="14"/>
+      </Position>
+      <Position>
+        <Filename Value="umain.pas"/>
+        <Caret Line="91" Column="25" TopLine="54"/>
+      </Position>
+      <Position>
+        <Filename Value="umain.pas"/>
+        <Caret Line="107" TopLine="74"/>
       </Position>
     </JumpHistory>
     <RunParams>
