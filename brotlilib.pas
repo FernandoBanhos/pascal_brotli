@@ -40,7 +40,7 @@ const
     BrotliEnc = 'brotlienc.dll';
     BrotliDec = 'brotlidec.dll';
   {$ENDIF}
-  {$IFDEF LINUX};
+  {$IFDEF LINUX}
     BrotliCommon = 'brotlicommon.so';
     BrotliEnc = 'brotlienc.so';
     BrotliDec = 'brotlidec.so';
@@ -399,4 +399,5 @@ finalization
   TBrotli.Done;
 
 end.
+
 
