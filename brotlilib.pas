@@ -20,20 +20,35 @@ unit brotlilib;
 
 {$IFDEF FPC}
  {$MODE DELPHI}
- {$PACKRECORDS C}
+{$ENDIF}
+
+{.$DEFINE LINKLIB}
+
+{$IFDEF LINKLIB}
+  {$IFDEF WIN32}
+    {$LINKLIB 'libbrotli_win32.a'}
+  {$ENDIF}
+  {$IFDEF WIN64}
+    {$LINKLIB 'libbrotli_win64.a'}
+  {$ENDIF}
+{$ELSE}
+  {$PACKRECORDS C}
 {$ENDIF}
 
 interface
 
 uses
-  {$IFDEF MSWINDOWS}
-    Windows,
-  {$ENDIF}
-  {$IFDEF FPC}
-    DynLibs,
+  {$IFNDEF MSWINDOWS}
+    {$IFDEF MSWINDOWS}
+      Windows,
+    {$ENDIF}
+    {$IFDEF FPC}
+      DynLibs,
+    {$ENDIF}
   {$ENDIF}
   Classes, SysUtils, SyncObjs;
 
+{$IFNDEF LINKLIB}
 const
   {$IFDEF MSWINDOWS}
     BrotliCommon = 'brotlicommon.dll';
@@ -45,10 +60,12 @@ const
     BrotliEnc = 'brotlienc.so';
     BrotliDec = 'brotlidec.so';
   {$ENDIF}
+{$ENDIF}
 
-  {$IFNDEF FPC}
-    NilHandle = HMODULE(0);
-  {$ENDIF}
+{$IFNDEF FPC}
+const
+  NilHandle = HMODULE(0);
+{$ENDIF}
 
 type
   {$IFNDEF FPC}
@@ -94,26 +111,31 @@ type
   TBrotli = record
   private
     class var FInitialized : boolean;
-    class var FCritSession : TCriticalSection;
-    class var FHandleCommon: TLibHandle;
-    class var FHandleEncode: TLibHandle;
-    class var FHandleDecode: TLibHandle;
-    class function InternalLoadCommon(const ACommon: TFileName): TLibHandle; static;
-    class function InternalLoadEncode(const AEncode: TFileName): TLibHandle; static;
-    class function InternalLoadDecode(const ADecode: TFileName): TLibHandle; static;
-
+    {$IFNDEF LINKLIB}
+      class var FCritSession : TCriticalSection;
+      class var FHandleCommon: TLibHandle;
+      class var FHandleEncode: TLibHandle;
+      class var FHandleDecode: TLibHandle;
+      class function InternalLoadCommon(const ACommon: TFileName): TLibHandle; static;
+      class function InternalLoadEncode(const AEncode: TFileName): TLibHandle; static;
+      class function InternalLoadDecode(const ADecode: TFileName): TLibHandle; static;
+    {$ENDIF}
   public
     class procedure Init; static;
     class procedure Done; static;
 
-    class procedure Load(const ACommon, AEncode, ADecode: TFileName); static;
-    class procedure Unload; static;
+    {$IFNDEF LINKLIB}
+      class procedure Load(const ACommon, AEncode, ADecode: TFileName); static;
+      class procedure Unload; static;
+    {$ENDIF}
     class function IsLoaded: Boolean; static;
     class procedure Check; static;
 
-    class property HandleCommon: TLibHandle read FHandleCommon;
-    class property HandleEncode: TLibHandle read FHandleEncode;
-    class property HandleDecode: TLibHandle read FHandleDecode;
+    {$IFNDEF LINKLIB}
+      class property HandleCommon: TLibHandle read FHandleCommon;
+      class property HandleEncode: TLibHandle read FHandleEncode;
+      class property HandleDecode: TLibHandle read FHandleDecode;
+    {$ENDIF}
   end;
 
 const
@@ -130,6 +152,7 @@ const
   BROTLI_FALSE = 0;
   BROTLI_TRUE = 1;
 
+{$IFNDEF LINKLIB}
 var
   // encode
   BrotliEncoderCreateInstance: function(const alloc_func, free_func, opaque: Pointer): Pointer; cdecl;
@@ -183,6 +206,59 @@ var
 
   // common
   BrotliGetDictionary: procedure; cdecl;
+{$ELSE}
+  function BrotliEncoderCreateInstance(const alloc_func, free_func, opaque: Pointer): Pointer; cdecl; external name 'BrotliEncoderCreateInstance';
+  procedure BrotliEncoderDestroyInstance(const state: Pointer); cdecl; external name 'BrotliEncoderDestroyInstance';
+  function BrotliEncoderSetParameter(const state: Pointer;
+                                     const BrotliEncoderParameter: integer;
+                                     const Value: Cardinal): Integer; cdecl; external name 'BrotliEncoderSetParameter';
+  function BrotliEncoderMaxCompressedSize(const InputSize: Integer): Integer; cdecl; external name 'BrotliEncoderMaxCompressedSize';
+  function BrotliEncoderCompress(const quality: Integer; const lgwin: Integer;
+                                 const mode: Integer; const input_size: NativeUInt;
+                                 const input_buffer: Pointer; out encoded_size: NativeUInt;
+                                 const encoded_buffer: Pointer): Integer; cdecl; external name 'BrotliEncoderCompress';
+   function BrotliEncoderCompressStream(state: Pointer;
+                                        op: integer;
+                                        var available_in: NativeUInt;
+                                        next_in: Pointer;
+                                        var available_out: NativeUInt;
+                                        next_out: Pointer;
+                                        total_out: Pointer): Integer; cdecl; external name 'BrotliEncoderCompressStream';
+  function BrotliEncoderTakeOutput(const state : Pointer;
+                                   var size : NativeUInt) : Pointer; cdecl; external name 'BrotliEncoderTakeOutput';
+  function BrotliEncoderHasMoreOutput(const state : pointer) : Integer; cdecl; external name 'BrotliEncoderHasMoreOutput';
+  function BrotliEncoderIsFinished(const state : pointer) : Integer; cdecl; external name 'BrotliEncoderIsFinished';
+  function BrotliEncoderVersion: Cardinal; cdecl; external name 'BrotliEncoderVersion';
+
+  // decode
+  function BrotliDecoderCreateInstance(const alloc_func, free_func, opaque: Pointer): Pointer; cdecl; external name 'BrotliDecoderCreateInstance';
+  function BrotliDecoderAttachDictionary(const state: Pointer; dict_type : Pointer;
+                                         data_size : NativeUInt; data : Pointer) : Integer; cdecl; external name 'BrotliDecoderAttachDictionary';
+  procedure BrotliDecoderDestroyInstance(const state: Pointer); cdecl; external name 'BrotliDecoderDestroyInstance';
+  function BrotliDecoderSetParameter(const state: Pointer;
+                                     const BrotliDecoderParameter: integer;
+                                     const Value: Cardinal): Integer; cdecl; external name 'BrotliDecoderSetParameter';
+
+  function BrotliDecoderDecompress(encoded_size: NativeUInt; const encoded_buffer:
+                                   pointer; var decoded_size: NativeUInt;
+                                   decoded_buffer: pointer): Integer; cdecl; external name 'BrotliDecoderDecompress';
+
+  function BrotliDecoderDecompressStream(const state: Pointer;
+                                         var available_in: NativeUInt;
+                                         next_in: Pointer;
+                                         var available_out: NativeUInt;
+                                         next_out: Pointer;
+                                         total_out: Pointer): integer; cdecl; external name 'BrotliDecoderDecompressStream';
+  function BrotliDecoderGetErrorCode(const state: Pointer) : Integer; cdecl; external name 'BrotliDecoderGetErrorCode';
+  function BrotliDecoderHasMoreOutput(const state: Pointer) : Integer; cdecl; external name 'BrotliDecoderHasMoreOutput';
+  function BrotliDecoderErrorString(const errorcode : integer) : PChar; cdecl; external name 'BrotliDecoderErrorString';
+  function BrotliDecoderIsUsed(const state: Pointer) : Integer; cdecl; external name 'BrotliDecoderIsUsed';
+  function BrotliDecoderTakeOutput(const state: Pointer; var size : NativeUInt) : Pointer; cdecl; external name 'BrotliDecoderTakeOutput';
+  function BrotliDecoderVersion: Cardinal; cdecl; external name 'BrotliDecoderVersion';
+
+  // common
+  procedure BrotliGetDictionary; cdecl; external name 'BrotliGetDictionary';
+{$ENDIF}
 
   //utils
   function BrotliEncoderVersionStr : string;
@@ -213,7 +289,7 @@ begin
 end;
 
 { TBrotli }
-
+{$IFNDEF LINKLIB}
 class function TBrotli.InternalLoadCommon(const ACommon: TFileName): TLibHandle;
 begin
   FCritSession.Acquire;
@@ -287,6 +363,7 @@ begin
     FCritSession.Release;
   end;
 end;
+{$ENDIF}
 
 class procedure TBrotli.Init;
 begin
@@ -295,31 +372,36 @@ begin
 
   FInitialized := True;
 
-  FCritSession := TCriticalSection.Create;
-  InternalLoadCommon(BrotliCommon);
-  InternalLoadEncode(BrotliEnc);
-  InternalLoadDecode(BrotliDec);
+  {$IFNDEF LINKLIB}
+    FCritSession := TCriticalSection.Create;
+    InternalLoadCommon(BrotliCommon);
+    InternalLoadEncode(BrotliEnc);
+    InternalLoadDecode(BrotliDec);
+  {$ENDIF}
 end;
 
 class procedure TBrotli.Done;
 begin
-  FCritSession.Acquire;
-  try
-    Unload;
-  finally
-    FCritSession.Release;
-    FCritSession.Free;
-  end;
+  {$IFNDEF LINKLIB}
+    FCritSession.Acquire;
+    try
+      Unload;
+    finally
+      FCritSession.Release;
+      FCritSession.Free;
+    end;
+  {$ENDIF}
 end;
 
+{$IFNDEF LINKLIB}
 class procedure TBrotli.Load(const ACommon, AEncode, ADecode: TFileName);
 begin
-  if (ACommon = '') or (AEncode = '') or (ADecode = '') then
-    raise EArgumentException.Create('Brotli has 3 libraries');
+    if (ACommon = '') or (AEncode = '') or (ADecode = '') then
+      raise EArgumentException.Create('Brotli has 3 libraries');
 
-  InternalLoadCommon(ACommon);
-  InternalLoadEncode(AEncode);
-  InternalLoadDecode(ADecode);
+    InternalLoadCommon(ACommon);
+    InternalLoadEncode(AEncode);
+    InternalLoadDecode(ADecode);
 end;
 
 class procedure TBrotli.Unload;
@@ -366,29 +448,36 @@ begin
     FCritSession.Release;
   end;
 end;
+{$ENDIF}
 
 class function TBrotli.IsLoaded: Boolean;
 begin
-  FCritSession.Acquire;
-  try
-    Result := (FHandleCommon <> NilHandle) and
-              (FHandleEncode <> NilHandle) and
-              (FHandleDecode <> NilHandle);
-  finally
-    FCritSession.Release;
-  end;
+  {$IFNDEF LINKLIB}
+    FCritSession.Acquire;
+    try
+      Result := (FHandleCommon <> NilHandle) and
+                (FHandleEncode <> NilHandle) and
+                (FHandleDecode <> NilHandle);
+    finally
+      FCritSession.Release;
+    end;
+  {$ELSE}
+    Result := True;
+  {$ENDIF}
 end;
 
 class procedure TBrotli.Check;
 begin
-  if FHandleCommon = NilHandle then
-    raise Exception.CreateFmt('Library %s not found', [BrotliCommon]);
+  {$IFNDEF LINKLIB}
+    if FHandleCommon = NilHandle then
+      raise Exception.CreateFmt('Library %s not found', [BrotliCommon]);
 
-  if FHandleEncode = NilHandle then
-    raise Exception.CreateFmt('Library %s not found', [BrotliEnc]);
+    if FHandleEncode = NilHandle then
+      raise Exception.CreateFmt('Library %s not found', [BrotliEnc]);
 
-  if FHandleDecode = NilHandle then
-    raise Exception.CreateFmt('Library %s not found', [BrotliDec]);
+    if FHandleDecode = NilHandle then
+      raise Exception.CreateFmt('Library %s not found', [BrotliDec]);
+  {$ENDIF}
 end;
 
 initialization
