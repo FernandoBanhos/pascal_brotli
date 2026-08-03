@@ -9,9 +9,9 @@
     <Transaction>2024/02/28 12:20:01.000.295,=C:\Users\Lucedata\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
     <Transaction>2024/02/29 10:07:47.000.632,=C:\Users\Lucedata\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
     <Transaction>2024/04/08 18:02:10.000.982,=C:\Users\Lucedata\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
-    <Transaction>2024/04/09 11:34:48.806,=C:\Users\Lucedata\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
-    <Transaction>2024/04/09 12:23:17.785,D:\SourceForge\pascal_brotli\demos\Delphi\gui\umain.pas=C:\Users\Lucedata\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
-    <Transaction>2024/04/09 12:23:17.785,D:\SourceForge\pascal_brotli\demos\Delphi\gui\umain.dfm=C:\Users\Lucedata\Documents\Embarcadero\Studio\Projects\Unit1.dfm</Transaction>
-    <Transaction>2024/04/09 12:23:31.238,D:\SourceForge\pascal_brotli\demos\Delphi\gui\brotli_gui.dproj=C:\Users\Lucedata\Documents\Embarcadero\Studio\Projects\Project1.dproj</Transaction>
+    <Transaction>2024/04/09 11:34:48.000.806,=C:\Users\Lucedata\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2024/04/09 12:23:17.000.785,C:\Users\Lucedata\Documents\Embarcadero\Studio\Projects\Unit1.pas=D:\SourceForge\pascal_brotli\demos\Delphi\gui\umain.pas</Transaction>
+    <Transaction>2024/04/09 12:23:17.000.785,C:\Users\Lucedata\Documents\Embarcadero\Studio\Projects\Unit1.dfm=D:\SourceForge\pascal_brotli\demos\Delphi\gui\umain.dfm</Transaction>
+    <Transaction>2024/04/09 12:23:31.000.238,C:\Users\Lucedata\Documents\Embarcadero\Studio\Projects\Project1.dproj=D:\SourceForge\pascal_brotli\demos\Delphi\gui\brotli_gui.dproj</Transaction>
   </Transactions>
 </BorlandProject>

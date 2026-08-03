@@ -22,14 +22,18 @@ unit brotlilib;
  {$MODE DELPHI}
 {$ENDIF}
 
-{.$DEFINE LINKLIB}
+{$DEFINE LINKLIB}
 
 {$IFDEF LINKLIB}
   {$IFDEF WIN32}
     {$LINKLIB 'libbrotli_win32.a'}
   {$ENDIF}
   {$IFDEF WIN64}
-    {$LINKLIB 'libbrotli_win64.a'}
+    {$IF FPC_FULlVERSION >= 30301}
+      {$LINKLIB 'libbrotli_win64.a'}
+    {$ELSE}
+      {$UNDEF LINKLIB}
+    {$IFEND}
   {$ENDIF}
 {$ELSE}
   {$PACKRECORDS C}
@@ -207,57 +211,57 @@ var
   // common
   BrotliGetDictionary: procedure; cdecl;
 {$ELSE}
-  function BrotliEncoderCreateInstance(const alloc_func, free_func, opaque: Pointer): Pointer; cdecl; external name 'BrotliEncoderCreateInstance';
-  procedure BrotliEncoderDestroyInstance(const state: Pointer); cdecl; external name 'BrotliEncoderDestroyInstance';
+  function BrotliEncoderCreateInstance(const alloc_func, free_func, opaque: Pointer): Pointer; cdecl; external;
+  procedure BrotliEncoderDestroyInstance(const state: Pointer); cdecl; external;
   function BrotliEncoderSetParameter(const state: Pointer;
                                      const BrotliEncoderParameter: integer;
-                                     const Value: Cardinal): Integer; cdecl; external name 'BrotliEncoderSetParameter';
-  function BrotliEncoderMaxCompressedSize(const InputSize: Integer): Integer; cdecl; external name 'BrotliEncoderMaxCompressedSize';
+                                     const Value: Cardinal): Integer; cdecl; external;
+  function BrotliEncoderMaxCompressedSize(const InputSize: Integer): Integer; cdecl; external;
   function BrotliEncoderCompress(const quality: Integer; const lgwin: Integer;
                                  const mode: Integer; const input_size: NativeUInt;
                                  const input_buffer: Pointer; out encoded_size: NativeUInt;
-                                 const encoded_buffer: Pointer): Integer; cdecl; external name 'BrotliEncoderCompress';
+                                 const encoded_buffer: Pointer): Integer; cdecl; external;
    function BrotliEncoderCompressStream(state: Pointer;
                                         op: integer;
                                         var available_in: NativeUInt;
                                         next_in: Pointer;
                                         var available_out: NativeUInt;
                                         next_out: Pointer;
-                                        total_out: Pointer): Integer; cdecl; external name 'BrotliEncoderCompressStream';
+                                        total_out: Pointer): Integer; cdecl; external;
   function BrotliEncoderTakeOutput(const state : Pointer;
-                                   var size : NativeUInt) : Pointer; cdecl; external name 'BrotliEncoderTakeOutput';
-  function BrotliEncoderHasMoreOutput(const state : pointer) : Integer; cdecl; external name 'BrotliEncoderHasMoreOutput';
-  function BrotliEncoderIsFinished(const state : pointer) : Integer; cdecl; external name 'BrotliEncoderIsFinished';
-  function BrotliEncoderVersion: Cardinal; cdecl; external name 'BrotliEncoderVersion';
+                                   var size : NativeUInt) : Pointer; cdecl; external;
+  function BrotliEncoderHasMoreOutput(const state : pointer) : Integer; cdecl; external;
+  function BrotliEncoderIsFinished(const state : pointer) : Integer; cdecl; external;
+  function BrotliEncoderVersion: Cardinal; cdecl; external;
 
   // decode
-  function BrotliDecoderCreateInstance(const alloc_func, free_func, opaque: Pointer): Pointer; cdecl; external name 'BrotliDecoderCreateInstance';
+  function BrotliDecoderCreateInstance(const alloc_func, free_func, opaque: Pointer): Pointer; cdecl; external;
   function BrotliDecoderAttachDictionary(const state: Pointer; dict_type : Pointer;
-                                         data_size : NativeUInt; data : Pointer) : Integer; cdecl; external name 'BrotliDecoderAttachDictionary';
-  procedure BrotliDecoderDestroyInstance(const state: Pointer); cdecl; external name 'BrotliDecoderDestroyInstance';
+                                         data_size : NativeUInt; data : Pointer) : Integer; cdecl; external;
+  procedure BrotliDecoderDestroyInstance(const state: Pointer); cdecl; external;
   function BrotliDecoderSetParameter(const state: Pointer;
                                      const BrotliDecoderParameter: integer;
-                                     const Value: Cardinal): Integer; cdecl; external name 'BrotliDecoderSetParameter';
+                                     const Value: Cardinal): Integer; cdecl; external;
 
   function BrotliDecoderDecompress(encoded_size: NativeUInt; const encoded_buffer:
                                    pointer; var decoded_size: NativeUInt;
-                                   decoded_buffer: pointer): Integer; cdecl; external name 'BrotliDecoderDecompress';
+                                   decoded_buffer: pointer): Integer; cdecl; external;
 
   function BrotliDecoderDecompressStream(const state: Pointer;
                                          var available_in: NativeUInt;
                                          next_in: Pointer;
                                          var available_out: NativeUInt;
                                          next_out: Pointer;
-                                         total_out: Pointer): integer; cdecl; external name 'BrotliDecoderDecompressStream';
-  function BrotliDecoderGetErrorCode(const state: Pointer) : Integer; cdecl; external name 'BrotliDecoderGetErrorCode';
-  function BrotliDecoderHasMoreOutput(const state: Pointer) : Integer; cdecl; external name 'BrotliDecoderHasMoreOutput';
-  function BrotliDecoderErrorString(const errorcode : integer) : PChar; cdecl; external name 'BrotliDecoderErrorString';
-  function BrotliDecoderIsUsed(const state: Pointer) : Integer; cdecl; external name 'BrotliDecoderIsUsed';
-  function BrotliDecoderTakeOutput(const state: Pointer; var size : NativeUInt) : Pointer; cdecl; external name 'BrotliDecoderTakeOutput';
-  function BrotliDecoderVersion: Cardinal; cdecl; external name 'BrotliDecoderVersion';
+                                         total_out: Pointer): integer; cdecl; external;
+  function BrotliDecoderGetErrorCode(const state: Pointer) : Integer; cdecl; external;
+  function BrotliDecoderHasMoreOutput(const state: Pointer) : Integer; cdecl; external;
+  function BrotliDecoderErrorString(const errorcode : integer) : PChar; cdecl; external;
+  function BrotliDecoderIsUsed(const state: Pointer) : Integer; cdecl; external;
+  function BrotliDecoderTakeOutput(const state: Pointer; var size : NativeUInt) : Pointer; cdecl; external;
+  function BrotliDecoderVersion: Cardinal; cdecl; external;
 
   // common
-  procedure BrotliGetDictionary; cdecl; external name 'BrotliGetDictionary';
+  procedure BrotliGetDictionary; cdecl; external;
 {$ENDIF}
 
   //utils
