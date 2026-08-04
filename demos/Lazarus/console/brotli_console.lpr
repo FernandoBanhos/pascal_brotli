@@ -6,8 +6,7 @@ uses
   {$IFDEF UNIX}
   cthreads,
   {$ENDIF}
-  Classes, SysUtils, CustApp, brotlistream, bufstream
-  { you can add units after this };
+  Classes, SysUtils, CustApp, brotlistream, bufstream;
 
 type
 

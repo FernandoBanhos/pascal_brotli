@@ -27,13 +27,16 @@ unit brotlilib;
 {$IFDEF LINKLIB}
   {$IFDEF WIN32}
     {$LINKLIB 'libbrotli_win32.a'}
-  {$ENDIF}
-  {$IFDEF WIN64}
-    {$IF FPC_FULlVERSION >= 30301}
+  {$ELSE}
+    {$IFDEF WIN64}
       {$LINKLIB 'libbrotli_win64.a'}
     {$ELSE}
-      {$UNDEF LINKLIB}
-    {$IFEND}
+      {$IFDEF LINUX64}
+        {$LINKLIB 'libbrotli_linux64.a'}
+      {$ELSE}
+        {$UNDEF LINKLIB}
+      {$ENDIF}
+    {$ENDIF}
   {$ENDIF}
 {$ELSE}
   {$PACKRECORDS C}
@@ -42,15 +45,18 @@ unit brotlilib;
 interface
 
 uses
-  {$IFNDEF MSWINDOWS}
+  {$IFNDEF LINKLIB}
     {$IFDEF MSWINDOWS}
       Windows,
     {$ENDIF}
     {$IFDEF FPC}
       DynLibs,
     {$ENDIF}
+    SyncObjs,
+  {$ELSE}
+    brotli_libc,
   {$ENDIF}
-  Classes, SysUtils, SyncObjs;
+  Classes, SysUtils;
 
 {$IFNDEF LINKLIB}
 const

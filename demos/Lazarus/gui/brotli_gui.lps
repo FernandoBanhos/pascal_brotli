@@ -3,13 +3,13 @@
   <ProjectSession>
     <PathDelim Value="\"/>
     <Version Value="12"/>
-    <BuildModes Active="Default"/>
+    <BuildModes Active="Win32"/>
     <Units>
       <Unit>
         <Filename Value="brotli_gui.lpr"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="8"/>
-        <CursorPos X="15" Y="13"/>
+        <EditorIndex Value="4"/>
+        <CursorPos X="31" Y="22"/>
         <UsageCount Value="33"/>
         <Loaded Value="True"/>
       </Unit>
@@ -19,7 +19,6 @@
         <ComponentName Value="Form1"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <IsVisibleTab Value="True"/>
         <CursorPos X="18" Y="108"/>
         <UsageCount Value="33"/>
         <Loaded Value="True"/>
@@ -28,190 +27,86 @@
       <Unit>
         <Filename Value="..\..\..\brotlistream.pas"/>
         <EditorIndex Value="1"/>
-        <TopLine Value="167"/>
-        <CursorPos X="29" Y="188"/>
+        <TopLine Value="7"/>
         <UsageCount Value="16"/>
         <Loaded Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="..\..\..\brotlilib.pas"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="2"/>
-        <TopLine Value="118"/>
-        <CursorPos X="59" Y="211"/>
+        <TopLine Value="9"/>
+        <CursorPos X="32" Y="20"/>
         <UsageCount Value="16"/>
         <Loaded Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="..\..\..\..\PascalRAL\dev\src\database\RALDBStorageBIN.pas"/>
-        <EditorIndex Value="3"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="245"/>
         <CursorPos X="41" Y="269"/>
         <UsageCount Value="13"/>
-        <Loaded Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="..\..\..\..\PascalRAL\dev\src\database\RALDBStorageJSON.pas"/>
-        <EditorIndex Value="6"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="23"/>
         <CursorPos X="21" Y="16"/>
         <UsageCount Value="13"/>
-        <Loaded Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="..\..\..\..\PascalRAL\dev\src\database\RALDBStorage.pas"/>
-        <EditorIndex Value="7"/>
+        <EditorIndex Value="-1"/>
         <CursorPos X="27" Y="22"/>
         <UsageCount Value="13"/>
-        <Loaded Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="D:\kxBSON.pas"/>
-        <EditorIndex Value="9"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="83"/>
         <CursorPos X="9" Y="195"/>
         <UsageCount Value="13"/>
-        <Loaded Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="..\..\..\..\PascalRAL\dev\src - Copia\database\RALDBStorage.pas"/>
-        <EditorIndex Value="5"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="255"/>
         <CursorPos Y="361"/>
         <UsageCount Value="13"/>
         <Bookmarks Count="1">
           <Item0 X="14" Y="212" ID="1"/>
         </Bookmarks>
-        <Loaded Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="..\..\..\..\PascalRAL\dev\src - Copia\database\RALDBStorageBIN.pas"/>
-        <EditorIndex Value="4"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="11"/>
         <CursorPos X="15" Y="33"/>
         <UsageCount Value="13"/>
+      </Unit>
+      <Unit>
+        <Filename Value="..\..\..\brotli_libc.pas"/>
+        <EditorIndex Value="3"/>
+        <UsageCount Value="10"/>
         <Loaded Value="True"/>
       </Unit>
     </Units>
-    <JumpHistory HistoryIndex="29">
+    <JumpHistory HistoryIndex="3">
       <Position>
-        <Filename Value="D:\kxBSON.pas"/>
-        <Caret Line="458" Column="5" TopLine="456"/>
+        <Filename Value="umain.pas"/>
+        <Caret Line="108" Column="18"/>
       </Position>
       <Position>
-        <Filename Value="D:\kxBSON.pas"/>
-        <Caret Line="190" Column="19" TopLine="172"/>
+        <Filename Value="..\..\..\brotlistream.pas"/>
+        <Caret TopLine="7"/>
       </Position>
       <Position>
-        <Filename Value="D:\kxBSON.pas"/>
-        <Caret Line="1765" Column="57" TopLine="1740"/>
+        <Filename Value="..\..\..\brotlilib.pas"/>
+        <Caret Line="44" Column="60" TopLine="19"/>
       </Position>
       <Position>
-        <Filename Value="D:\kxBSON.pas"/>
-        <Caret Line="199" Column="19" TopLine="180"/>
-      </Position>
-      <Position>
-        <Filename Value="D:\kxBSON.pas"/>
-        <Caret Line="860" Column="5" TopLine="858"/>
-      </Position>
-      <Position>
-        <Filename Value="..\..\..\..\PascalRAL\dev\src\database\RALDBStorageBIN.pas"/>
-        <Caret Line="150" Column="15" TopLine="125"/>
-      </Position>
-      <Position>
-        <Filename Value="..\..\..\..\PascalRAL\dev\src\database\RALDBStorageBIN.pas"/>
-        <Caret Line="164" TopLine="118"/>
-      </Position>
-      <Position>
-        <Filename Value="..\..\..\..\PascalRAL\dev\src\database\RALDBStorageBIN.pas"/>
-        <Caret Line="21" Column="66"/>
-      </Position>
-      <Position>
-        <Filename Value="..\..\..\..\PascalRAL\dev\src\database\RALDBStorageBIN.pas"/>
-        <Caret Line="259" Column="23" TopLine="226"/>
-      </Position>
-      <Position>
-        <Filename Value="..\..\..\..\PascalRAL\dev\src\database\RALDBStorageBIN.pas"/>
-        <Caret Line="22" Column="12" TopLine="5"/>
-      </Position>
-      <Position>
-        <Filename Value="..\..\..\..\PascalRAL\dev\src\database\RALDBStorageBIN.pas"/>
-        <Caret Line="263" TopLine="261"/>
-      </Position>
-      <Position>
-        <Filename Value="..\..\..\..\PascalRAL\dev\src\database\RALDBStorageBIN.pas"/>
-        <Caret Line="155" TopLine="118"/>
-      </Position>
-      <Position>
-        <Filename Value="..\..\..\..\PascalRAL\dev\src\database\RALDBStorageBIN.pas"/>
-        <Caret Line="22" Column="15"/>
-      </Position>
-      <Position>
-        <Filename Value="..\..\..\..\PascalRAL\dev\src\database\RALDBStorageBIN.pas"/>
-        <Caret Line="274" TopLine="256"/>
-      </Position>
-      <Position>
-        <Filename Value="..\..\..\..\PascalRAL\dev\src\database\RALDBStorageBIN.pas"/>
-        <Caret Line="159" TopLine="126"/>
-      </Position>
-      <Position>
-        <Filename Value="..\..\..\..\PascalRAL\dev\src\database\RALDBStorageBIN.pas"/>
-        <Caret Line="25" Column="6" TopLine="4"/>
-      </Position>
-      <Position>
-        <Filename Value="..\..\..\..\PascalRAL\dev\src\database\RALDBStorageBIN.pas"/>
-        <Caret Line="288" Column="41" TopLine="262"/>
-      </Position>
-      <Position>
-        <Filename Value="..\..\..\..\PascalRAL\dev\src\database\RALDBStorageBIN.pas"/>
-        <Caret Line="167" Column="74" TopLine="148"/>
-      </Position>
-      <Position>
-        <Filename Value="..\..\..\..\PascalRAL\dev\src\database\RALDBStorageBIN.pas"/>
-        <Caret Line="31" Column="66"/>
-      </Position>
-      <Position>
-        <Filename Value="..\..\..\..\PascalRAL\dev\src\database\RALDBStorageBIN.pas"/>
-        <Caret Line="306" TopLine="274"/>
-      </Position>
-      <Position>
-        <Filename Value="..\..\..\..\PascalRAL\dev\src\database\RALDBStorageBIN.pas"/>
-        <Caret Line="209" TopLine="182"/>
-      </Position>
-      <Position>
-        <Filename Value="..\..\..\..\PascalRAL\dev\src\database\RALDBStorageBIN.pas"/>
-        <Caret Line="32" Column="15" TopLine="12"/>
-      </Position>
-      <Position>
-        <Filename Value="..\..\..\..\PascalRAL\dev\src\database\RALDBStorageBIN.pas"/>
-        <Caret Line="310" TopLine="291"/>
-      </Position>
-      <Position>
-        <Filename Value="..\..\..\..\PascalRAL\dev\src\database\RALDBStorageJSON.pas"/>
-        <Caret Line="29" Column="21"/>
-      </Position>
-      <Position>
-        <Filename Value="..\..\..\..\PascalRAL\dev\src\database\RALDBStorageBIN.pas"/>
-        <Caret Line="324" TopLine="279"/>
-      </Position>
-      <Position>
-        <Filename Value="..\..\..\..\PascalRAL\dev\src\database\RALDBStorageBIN.pas"/>
-        <Caret Line="17" Column="27" TopLine="2"/>
-      </Position>
-      <Position>
-        <Filename Value="..\..\..\..\PascalRAL\dev\src\database\RALDBStorageBIN.pas"/>
-        <Caret Line="55" Column="3" TopLine="51"/>
-      </Position>
-      <Position>
-        <Filename Value="..\..\..\..\PascalRAL\dev\src\database\RALDBStorageBIN.pas"/>
-        <Caret Line="18" Column="15"/>
-      </Position>
-      <Position>
-        <Filename Value="..\..\..\..\PascalRAL\dev\src\database\RALDBStorageBIN.pas"/>
-        <Caret Line="29" Column="23"/>
-      </Position>
-      <Position>
-        <Filename Value="..\..\..\..\PascalRAL\dev\src\database\RALDBStorageBIN.pas"/>
-        <Caret Line="295" Column="17" TopLine="273"/>
+        <Filename Value="..\..\..\brotlilib.pas"/>
+        <Caret Line="50" Column="12" TopLine="25"/>
       </Position>
     </JumpHistory>
     <RunParams>

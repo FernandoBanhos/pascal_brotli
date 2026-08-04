@@ -3,21 +3,19 @@
   <ProjectSession>
     <PathDelim Value="\"/>
     <Version Value="12"/>
-    <BuildModes Active="Default"/>
+    <BuildModes Active="Win64"/>
     <Units>
       <Unit>
         <Filename Value="brotli_console.lpr"/>
         <IsPartOfProject Value="True"/>
-        <IsVisibleTab Value="True"/>
-        <TopLine Value="50"/>
-        <CursorPos X="32" Y="76"/>
-        <UsageCount Value="22"/>
+        <CursorPos X="39" Y="90"/>
+        <UsageCount Value="23"/>
         <Loaded Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="D:\fpcupdeluxe\laz32\fpcsrc\packages\fcl-base\src\custapp.pp"/>
         <UnitName Value="CustApp"/>
-        <EditorIndex Value="4"/>
+        <EditorIndex Value="5"/>
         <TopLine Value="476"/>
         <CursorPos X="24" Y="512"/>
         <UsageCount Value="10"/>
@@ -29,17 +27,16 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="MetaDarkStyleDSGNOptionsFrame"/>
-        <EditorIndex Value="2"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="54"/>
         <CursorPos X="29" Y="56"/>
         <UsageCount Value="10"/>
-        <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="..\..\..\..\metadarkstyle\src\udarkstyle.pas"/>
         <UnitName Value="uDarkStyle"/>
-        <EditorIndex Value="3"/>
+        <EditorIndex Value="4"/>
         <TopLine Value="248"/>
         <UsageCount Value="10"/>
         <Loaded Value="True"/>
@@ -47,73 +44,27 @@
       <Unit>
         <Filename Value="..\..\..\brotlistream.pas"/>
         <EditorIndex Value="1"/>
-        <TopLine Value="41"/>
-        <CursorPos X="3" Y="58"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="..\..\..\brotlilib.pas"/>
+        <EditorIndex Value="2"/>
+        <TopLine Value="32"/>
+        <CursorPos X="14" Y="52"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="..\..\..\mylibc.pas"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="3"/>
+        <CursorPos X="15" Y="17"/>
         <UsageCount Value="10"/>
         <Loaded Value="True"/>
       </Unit>
     </Units>
-    <JumpHistory HistoryIndex="20">
-      <Position>
-        <Filename Value="D:\fpcupdeluxe\laz32\fpcsrc\packages\fcl-base\src\custapp.pp"/>
-        <Caret Line="76" Column="28" TopLine="63"/>
-      </Position>
-      <Position>
-        <Filename Value="brotli_console.lpr"/>
-        <Caret Line="34" Column="18" TopLine="13"/>
-      </Position>
-      <Position>
-        <Filename Value="brotli_console.lpr"/>
-        <Caret Line="38" Column="5" TopLine="13"/>
-      </Position>
-      <Position>
-        <Filename Value="brotli_console.lpr"/>
-        <Caret Line="62" Column="50" TopLine="28"/>
-      </Position>
-      <Position>
-        <Filename Value="brotli_console.lpr"/>
-        <Caret Line="24" Column="25" TopLine="10"/>
-      </Position>
-      <Position>
-        <Filename Value="brotli_console.lpr"/>
-        <Caret Line="23" Column="23" TopLine="6"/>
-      </Position>
-      <Position>
-        <Filename Value="brotli_console.lpr"/>
-        <Caret Line="95" TopLine="52"/>
-      </Position>
-      <Position>
-        <Filename Value="brotli_console.lpr"/>
-        <Caret Line="9" Column="53"/>
-      </Position>
-      <Position>
-        <Filename Value="brotli_console.lpr"/>
-        <Caret Line="20" Column="70"/>
-      </Position>
-      <Position>
-        <Filename Value="brotli_console.lpr"/>
-        <Caret Line="107" Column="28" TopLine="83"/>
-      </Position>
-      <Position>
-        <Filename Value="brotli_console.lpr"/>
-        <Caret Line="18" Column="21" TopLine="7"/>
-      </Position>
-      <Position>
-        <Filename Value="brotli_console.lpr"/>
-        <Caret Line="32" Column="15" TopLine="29"/>
-      </Position>
-      <Position>
-        <Filename Value="D:\fpcupdeluxe\laz32\fpcsrc\packages\fcl-base\src\custapp.pp"/>
-        <Caret Line="75" Column="19" TopLine="57"/>
-      </Position>
-      <Position>
-        <Filename Value="D:\fpcupdeluxe\laz32\fpcsrc\packages\fcl-base\src\custapp.pp"/>
-        <Caret Line="529" Column="3" TopLine="522"/>
-      </Position>
-      <Position>
-        <Filename Value="D:\fpcupdeluxe\laz32\fpcsrc\packages\fcl-base\src\custapp.pp"/>
-        <Caret Line="70" Column="14" TopLine="54"/>
-      </Position>
+    <JumpHistory HistoryIndex="29">
       <Position>
         <Filename Value="brotli_console.lpr"/>
         <Caret Line="37" Column="9" TopLine="29"/>
@@ -137,6 +88,99 @@
       <Position>
         <Filename Value="brotli_console.lpr"/>
         <Caret Line="23" Column="22"/>
+      </Position>
+      <Position>
+        <Filename Value="brotli_console.lpr"/>
+        <Caret Line="76" Column="32" TopLine="2"/>
+      </Position>
+      <Position>
+        <Filename Value="..\..\..\brotlistream.pas"/>
+      </Position>
+      <Position>
+        <Filename Value="..\..\..\brotlilib.pas"/>
+      </Position>
+      <Position>
+        <Filename Value="brotli_console.lpr"/>
+        <Caret Line="126" Column="75" TopLine="101"/>
+      </Position>
+      <Position>
+        <Filename Value="brotli_console.lpr"/>
+        <Caret Line="134"/>
+      </Position>
+      <Position>
+        <Filename Value="..\..\..\brotlistream.pas"/>
+      </Position>
+      <Position>
+        <Filename Value="brotli_console.lpr"/>
+        <Caret Line="9"/>
+      </Position>
+      <Position>
+        <Filename Value="brotli_console.lpr"/>
+        <Caret Line="134" TopLine="101"/>
+      </Position>
+      <Position>
+        <Filename Value="..\..\..\brotlilib.pas"/>
+        <Caret Line="53" Column="38" TopLine="40"/>
+      </Position>
+      <Position>
+        <Filename Value="brotli_console.lpr"/>
+        <Caret Line="134" TopLine="101"/>
+      </Position>
+      <Position>
+        <Filename Value="..\..\..\brotlilib.pas"/>
+        <Caret Line="53" Column="38" TopLine="40"/>
+      </Position>
+      <Position>
+        <Filename Value="..\..\..\brotlilib.pas"/>
+        <Caret Line="52" Column="12" TopLine="40"/>
+      </Position>
+      <Position>
+        <Filename Value="..\..\..\brotlilib.pas"/>
+        <Caret Line="53" Column="12" TopLine="22"/>
+      </Position>
+      <Position>
+        <Filename Value="..\..\..\mylibc.pas"/>
+        <Caret Line="10" Column="36" TopLine="4"/>
+      </Position>
+      <Position>
+        <Filename Value="brotli_console.lpr"/>
+        <Caret Line="134" TopLine="101"/>
+      </Position>
+      <Position>
+        <Filename Value="..\..\..\mylibc.pas"/>
+        <Caret Line="21" Column="13"/>
+      </Position>
+      <Position>
+        <Filename Value="..\..\..\brotlilib.pas"/>
+        <Caret Line="36" Column="3" TopLine="22"/>
+      </Position>
+      <Position>
+        <Filename Value="brotli_console.lpr"/>
+        <Caret Line="133" TopLine="100"/>
+      </Position>
+      <Position>
+        <Filename Value="..\..\..\brotlilib.pas"/>
+        <Caret Line="52" Column="14" TopLine="32"/>
+      </Position>
+      <Position>
+        <Filename Value="brotli_console.lpr"/>
+        <Caret Line="52" Column="69" TopLine="22"/>
+      </Position>
+      <Position>
+        <Filename Value="brotli_console.lpr"/>
+        <Caret Line="22" Column="15" TopLine="14"/>
+      </Position>
+      <Position>
+        <Filename Value="brotli_console.lpr"/>
+        <Caret Line="75" Column="3" TopLine="66"/>
+      </Position>
+      <Position>
+        <Filename Value="brotli_console.lpr"/>
+        <Caret Line="34" Column="10" TopLine="23"/>
+      </Position>
+      <Position>
+        <Filename Value="brotli_console.lpr"/>
+        <Caret Line="22" Column="15" TopLine="5"/>
       </Position>
     </JumpHistory>
     <RunParams>
