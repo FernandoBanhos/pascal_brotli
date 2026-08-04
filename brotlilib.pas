@@ -29,7 +29,11 @@ unit brotlilib;
     {$LINKLIB 'libbrotli_win32.a'}
   {$ELSE}
     {$IFDEF WIN64}
-      {$LINKLIB 'libbrotli_win64.a'}
+      {$IF FPC_FULL_VERSION >= 30301}
+        {$LINKLIB 'libbrotli_win64.a'}
+      {$ELSE}
+        {$UNDEF LINKLIB}
+      {$IFEND}
     {$ELSE}
       {$IFDEF LINUX64}
         {$LINKLIB 'libbrotli_linux64.a'}
@@ -53,8 +57,6 @@ uses
       DynLibs,
     {$ENDIF}
     SyncObjs,
-  {$ELSE}
-    brotli_libc,
   {$ENDIF}
   Classes, SysUtils;
 
