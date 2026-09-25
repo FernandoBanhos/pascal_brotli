@@ -5,9 +5,9 @@ interface
 function _malloc(size: NativeUInt): Pointer; cdecl;
 procedure _free(p: Pointer); cdecl;
 function _calloc(count, size: NativeUInt): Pointer; cdecl;
-procedure _memcpy(dest, src: Pointer; n: NativeUInt); cdecl;
-procedure _memmove(dest, src: Pointer; n: NativeUInt); cdecl;
-procedure _memset(dest: Pointer; val: Integer; n: NativeUInt); cdecl;
+function _memcpy(dest, src: Pointer; n: NativeUInt): Pointer; cdecl;
+function _memmove(dest, src: Pointer; n: NativeUInt): Pointer; cdecl;
+function _memset(dest: Pointer; val: Integer; n: NativeUInt): Pointer; cdecl;
 function _memchr(s: Pointer; c: Integer; n: NativeUInt): Pointer; cdecl;
 function _log2(x: Double): Double; cdecl;
 procedure _exit(status: Integer); cdecl;
@@ -31,15 +31,17 @@ begin
   Result := AllocMem(count * size);
 end;
 
-procedure _memcpy(dest, src: Pointer; n: NativeUInt); cdecl;
+function _memcpy(dest, src: Pointer; n: NativeUInt): Pointer; cdecl;
 begin
   Move(src^, dest^, n);
+  Result := dest;
 end;
 
-procedure _memmove(dest, src: Pointer; n: NativeUInt); cdecl;
+function _memmove(dest, src: Pointer; n: NativeUInt): Pointer; cdecl;
 var
   i: NativeUInt;
 begin
+  Result := dest;
   if n = 0 then
     Exit;
   if (NativeUInt(dest) < NativeUInt(src)) or
@@ -51,9 +53,10 @@ begin
         PByte(NativeUInt(src) + i - 1)^;
 end;
 
-procedure _memset(dest: Pointer; val: Integer; n: NativeUInt); cdecl;
+function _memset(dest: Pointer; val: Integer; n: NativeUInt): Pointer; cdecl;
 begin
   FillChar(dest^, n, val);
+  Result := dest;
 end;
 
 function _memchr(s: Pointer; c: Integer; n: NativeUInt): Pointer; cdecl;
